@@ -27,8 +27,8 @@ app.use(session({
     cookie:{
         maxAge: 1000* 60 * 60 *24 *7, // 7-days expiry
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // true in production
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax' // 'none' for cross-domain in production
+        secure: true, // Always true since Vercel uses HTTPS
+        sameSite: 'none' // Required for cross-domain cookies
     },
     store:MongoStore.create({
         mongoUrl:process.env.MONGODB_URI,

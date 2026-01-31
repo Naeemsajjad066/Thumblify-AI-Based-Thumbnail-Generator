@@ -20,14 +20,21 @@ try {
     req.session.isLoggedIn= true;
     req.session.userId=newUser._id;
 
-    return res.json({
-        message:"Account Created Successfully",
-        user:{
-            _id:newUser._id,
-            name:newUser.name,
-            email:newUser.email
+    // Save session before sending response
+    req.session.save((err) => {
+        if (err) {
+            console.log('Session save error:', err);
+            return res.status(500).json({message: 'Session save failed'});
         }
-    })
+        return res.json({
+            message:"Account Created Successfully",
+            user:{
+                _id:newUser._id,
+                name:newUser.name,
+                email:newUser.email
+            }
+        });
+    });
 
 } catch (error) {
     console.log(error);
@@ -58,14 +65,21 @@ try {
     req.session.isLoggedIn= true;
     req.session.userId=user._id;   
 
-    return res.json({
-        message:"Logged in Successfully ",
-        user:{
-            _id:user._id,
-            name:user.name,
-            email:user.email
+    // Save session before sending response
+    req.session.save((err) => {
+        if (err) {
+            console.log('Session save error:', err);
+            return res.status(500).json({message: 'Session save failed'});
         }
-    })
+        return res.json({
+            message:"Logged in Successfully ",
+            user:{
+                _id:user._id,
+                name:user.name,
+                email:user.email
+            }
+        });
+    });
 } catch (error) {
     console.log(error);
     res.status(500).json({message:error.message})
