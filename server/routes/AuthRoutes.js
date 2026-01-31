@@ -9,4 +9,4 @@ AuthRouter.post('/login',loginUser);
 AuthRouter.get('/verify',protect,VerifyUser)
 AuthRouter.post('/logout',protect,LogoutUser)
 
-export default AuthRouter
+export default AuthRouter 
